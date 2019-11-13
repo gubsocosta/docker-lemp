@@ -3,6 +3,7 @@
 - PHP 7.3-fpm
 - MySQL 5.7.22
 - phpMyAdmin
+- redis 5.0.5
 
 ### for start LEMP: 
 ``docker-compose up -d``
