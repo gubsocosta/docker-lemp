@@ -6,18 +6,25 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
     build-essential \
     dialog \
     curl \
+    default-libmysqlclient-dev \
+    gifsicle \
     git \
     gnupg \
     g++ \
-    jpegoptim optipng pngquant gifsicle \
+    jpegoptim \
+    libbz2-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libicu-dev \
     libpng-dev \
+    libsasl2-dev \
     libssl-dev\
+    libxml2-dev \
     libzip-dev \
     locales \
     mariadb-client \
+    optipng \
+    pngquant \
     unzip \
     vim \
     wget \
@@ -31,33 +38,9 @@ RUN  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.s
 && npm cache clean -f && npm install -g n && n stable && npm install cross-env
 
 # Install php extensions
-RUN docker-php-ext-install \
-    bcmath /
-    ctype /
-    curl /
-    dom /
-    exif /
-    gd /
-    iconv /
-    intl /
-    json /
-    mbstring /
-    mysqli /
-    pcntl /
-    opcache /
-    openssl /
-    pcre /
-    pdo /
-    pdo_mysql /
-    soap /
-    simplexml /
-    spl /
-    tokenizer /
-    xml /
-    xmlrpc /
-    zip /
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-RUN docker-php-ext-install gd
+RUN docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mysqli opcache pdo_mysql soap zip \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd exif
 
 # Install composer
 RUN curl --silent --show-error https://getcomposer.org/installer | php && \
