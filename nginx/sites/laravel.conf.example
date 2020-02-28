@@ -42,7 +42,7 @@ server {
 	}
 
     # Log path
-	access_log /var/log/nginx/access.log;
-	error_log /var/log/nginx/error.log;
+	access_log /var/log/nginx/laravel/access.log;
+	error_log /var/log/nginx/laravel/error.log;
 	rewrite_log on;
 }
