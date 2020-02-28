@@ -1,5 +1,6 @@
 ### General ###
 dbdata/
+.env
 *.log
 
 ### VS Code ###

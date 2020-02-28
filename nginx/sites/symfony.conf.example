@@ -45,7 +45,7 @@ server {
     }
 
     # Log path
-    error_log /var/log/nginx/symfony_error.log;
-    access_log /var/log/nginx/symfony_access.log;
+    error_log /var/log/ngin/symfony/symfony_error.log;
+    access_log /var/log/ngi/symfony/symfony_access.log;
 	rewrite_log on;
 }

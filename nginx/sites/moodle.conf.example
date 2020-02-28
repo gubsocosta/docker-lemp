@@ -1,0 +1,39 @@
+server {
+    # Port
+    listen 80;
+    listen [::]:80;
+
+    # Server name
+    server_name moodle.test;
+
+    # Web path
+    root /var/www/moodle;    
+
+    # Extensions
+    index index.php index.html index.htm;
+    
+    # Config PHP FPM
+    location ~ [^/]\.php(/|$) {
+        fastcgi_split_path_info  ^(.+\.php)(/.+)$;
+        fastcgi_index            index.php;
+        fastcgi_pass php:9000;
+        include                  fastcgi_params;
+        fastcgi_param   PATH_INFO       $fastcgi_path_info;
+        fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;        
+    }
+
+    location /dataroot/ {
+        internal;
+        alias /var/www/moodledata;
+    }
+
+
+    # Log path
+	access_log /var/log/nginx/moodle/access.log;
+	error_log /var/log/nginx/moodle/error.log;
+	rewrite_log on;
+}
