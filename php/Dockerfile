@@ -38,7 +38,7 @@ RUN  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.s
 && npm cache clean -f && npm install -g n && n stable && npm install cross-env
 
 # Install php extensions
-RUN docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mysqli opcache pdo_mysql soap zip \
+RUN docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mysqli opcache pdo_mysql soap xmlrpc zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd exif
 
