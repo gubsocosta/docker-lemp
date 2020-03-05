@@ -1,7 +1,7 @@
 version: '3'
 
 networks: 
-  ${NETWORK_NAME}:
+  lempnet:
 
 services: 
   
@@ -27,7 +27,7 @@ services:
       - ${PHP_FPM_CONTAINER_NAME}
       - ${DB_CONTAINER_NAME}
     networks:
-      - ${NETWORK_NAME}
+      - lempnet
   
   mysql:
     env_file: ./.env 
@@ -45,7 +45,7 @@ services:
     volumes:
       - ./dbdata/mysql/:/var/lib/mysql/
     networks: 
-      - ${NETWORK_NAME}
+      - lempnet
   
   php:
     env_file: ./.env 
@@ -59,7 +59,7 @@ services:
     ports:
       - "${PHP_FPM_PORT}:9000"
     networks: 
-      - ${NETWORK_NAME}
+      - lempnet
 
   phpmyadmin:
     env_file: ./.env
@@ -73,4 +73,4 @@ services:
     depends_on:
       - ${DB_CONTAINER_NAME}
     networks:
-      - ${NETWORK_NAME}
+      - lempnet
