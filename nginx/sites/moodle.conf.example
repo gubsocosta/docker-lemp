@@ -7,7 +7,7 @@ server {
     server_name moodle.test;
 
     # Web path
-    root /var/www/moodle;    
+    root /var/www/html/moodle;    
 
     # Extensions
     index index.php index.html index.htm;
@@ -28,7 +28,7 @@ server {
 
     location /dataroot/ {
         internal;
-        alias /var/www/moodledata;
+        alias /var/www/html/moodledata;
     }
 
 

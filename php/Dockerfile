@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 # Install dependencies
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -yq \
@@ -31,26 +31,29 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
     zip
 
 # Install nodejs
-RUN  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash \
+RUN  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash \
 && export NVM_DIR="$HOME/.nvm" \
 && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
 && nvm install node && nvm use node \
 && npm cache clean -f && npm install -g n && n stable && npm install cross-env
 
 # Install php extensions
-RUN docker-php-ext-install bcmath bz2 calendar iconv intl mbstring mysqli opcache pdo_mysql soap xmlrpc zip \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd exif
+RUN docker-php-ext-install bcmath bz2 calendar iconv intl mysqli opcache pdo_mysql soap xmlrpc zip \
+    # && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    # && docker-php-ext-install gd exif
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
+
+# Install PECL extensions
+RUN pecl install redis-5.1.1 \
+    && pecl install xdebug-2.8.1 \
+    && docker-php-ext-enable redis xdebug
 
 # Install composer
 RUN curl --silent --show-error https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer && \
     composer self-update --preview
-
-# Install redis extension
-RUN pecl install redis-4.1.1 && \
-    docker-php-ext-enable redis
 
 # Add user for applications
 RUN groupadd -g 1000 www

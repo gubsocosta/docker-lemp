@@ -13,7 +13,7 @@ server {
     server_name laravel.test;
 
     # Web path
-    root /var/www/laravel/public;    
+    root /var/www/html/laravel/public;    
 
     # Extensions
     index index.php index.html index.htm;

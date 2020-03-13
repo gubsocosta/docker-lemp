@@ -1,6 +1,6 @@
-# DOCKER SIMPLE LEMP
+# PHP Development Environment
 - Nginx 1.16.1
-- PHP 7.3-fpm
+- PHP 7.4-fpm
 - MySQL 5.7
 - phpMyAdmin
 

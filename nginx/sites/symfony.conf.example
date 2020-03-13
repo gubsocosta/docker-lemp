@@ -13,7 +13,7 @@ server {
     server_name symfony.test;
 
     # Web path
-    root /var/www/projects/symfony/web;
+    root /var/www/html/symfony/web;
 
     # Extensions
     index index.php index.html index.htm;

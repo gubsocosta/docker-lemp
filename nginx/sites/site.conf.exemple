@@ -1,0 +1,33 @@
+server {
+    # Port
+    listen 80;
+    listen [::]:80;
+
+    # Server name
+    server_name site.test;
+
+    # Web path
+    root /var/www/html/site;
+
+    # Extensions
+    index index.php index.html index.htm index.nginx-debian.html;
+
+    # Config PHP FPM
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass php:9000;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    # Log path
+	access_log /var/log/nginx/site/access.log;
+	error_log /var/log/nginx/site/error.log;
+	rewrite_log on;
+}
