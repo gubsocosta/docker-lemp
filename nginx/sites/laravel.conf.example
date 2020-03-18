@@ -34,6 +34,7 @@ server {
     # Friendly URL
     location / {
         try_files $uri $uri/ /index.php?$query_string;
+        gzip_static on;
     }
 
     # Block file with .ht
